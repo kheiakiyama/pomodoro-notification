@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "PomodoroNotification", "PomodoroNotification\PomodoroNotification.njsproj", "{1A8E2EA3-930A-4389-B78B-87F2E87FC3BD}"
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "PomodoroNotification", "PomodoroNotification.njsproj", "{1A8E2EA3-930A-4389-B78B-87F2E87FC3BD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
