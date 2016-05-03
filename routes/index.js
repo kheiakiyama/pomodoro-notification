@@ -5,23 +5,11 @@ var botMessage = require('../tool/bot-message');
 
 /* GET home page. */
 router.get('/', function (req, res) {
-	var setting = {
-		Duration: 20,
-		ShortBreak: 5,
-		LongBreak: 20,
-		LongBreakSpan: 4
-	};
-	var sendMessage = function (text) {
-		console.log(text);
-	};
-	timer(setting, sendMessage);
 	res.render('index', { title: 'Express' });
 });
 
 router.post('/', function (req, res) {
-	console.log(process.env.API_KEY);
 	var apiKey = req.param('apikey');
-	console.log(apiKey);
 	if (process.env.API_KEY !== apiKey) {
 		res.send('Authentication Failed');
 		return;
@@ -33,14 +21,14 @@ router.post('/', function (req, res) {
 		LongBreak: 20,
 		LongBreakSpan: 4
 	};
-	var sendMessage = function (text) {
-		console.log(text);
+    var sendMessage = function (text) {
+        console.log(text);
 		botMessage({
-			from: { channelid: 'slack', address: 'U14PD4FPF' },
-			to: { channelid: 'slack', address: 'U0B3WGWTV' },
+			from: { channelId: 'slack', address: 'U14PD4FPF' },
+			to: { channelId: 'slack', address: 'U0B3WGWTV' },
 			text: text,
 			language: 'ja'
-		});
+		}, function (error) { console.log(error); });
 	};
 	timer(setting, sendMessage);
 	res.send('POST request to the homepage');
