@@ -1,6 +1,7 @@
 ﻿var express = require('express');
 var router = express.Router();
 var timer = require('../tool/pomodoro-timer');
+var botMessage = require('../tool/bot-message');
 
 /* GET home page. */
 router.get('/', function (req, res) {
@@ -34,6 +35,12 @@ router.post('/', function (req, res) {
 	};
 	var sendMessage = function (text) {
 		console.log(text);
+		botMessage({
+			from: { channelid: 'slack', address: 'U14PD4FPF' },
+			to: { channelid: 'slack', address: 'U0B3WGWTV' },
+			text: text,
+			language: 'ja'
+		});
 	};
 	timer(setting, sendMessage);
 	res.send('POST request to the homepage');
