@@ -15,7 +15,7 @@ module.exports = function (msg, cb) {
 		if (!err && response && response.statusCode >= 400) {
 			err = new Error('Message rejected with "' + response.statusMessage + '"');
 		}
-		if (cb) {
+		if (cb && err !== null) {
 			cb(err);
 		}
 	});
