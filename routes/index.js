@@ -3,9 +3,19 @@ var router = express.Router();
 var timer = require('../tool/pomodoro-timer');
 var botMessage = require('../tool/bot-message');
 
+var timerStoped = new Array();
+
 /* GET home page. */
 router.get('/', function (req, res) {
 	res.render('index', { title: 'Express' });
+});
+
+router.post('/stop', function (req, res) {
+    if (process.env.API_KEY !== req.body.apikey) {
+        res.send('Authentication Failed');
+        return;
+    }
+    timerStoped[req.body.id] = true;
 });
 
 router.post('/', function (req, res) {
@@ -13,22 +23,34 @@ router.post('/', function (req, res) {
 		res.send('Authentication Failed');
 		return;
 	}
-	var setting = {
-		Duration: req.body.duration,
-		ShortBreak: req.body.shortbreak,
-		LongBreak: req.body.longbreak,
-		LongBreakSpan: req.body.longbreakspan
-	};
+    var timerParameter = {
+        id: req.body.id,
+        messageDefault: {
+            from: { channelId: req.body.channelId, address: req.body.from },
+            to: { channelId: req.body.channelId, address: req.body.to },
+            language: req.body.language
+        },
+        setting: {
+            Duration: req.body.duration,
+            ShortBreak: req.body.shortbreak,
+            LongBreak: req.body.longbreak,
+            LongBreakSpan: req.body.longbreakspan
+        }
+    };
+    timerStoped[timerParameter.id] = false;
     var sendMessage = function (text) {
         console.log(text);
+        var messageParam = timerParameter.messageDefault;
 		botMessage({
-			from: { channelId: req.body.channelId, address: req.body.from },
-			to: { channelId: req.body.channelId, address: req.body.to },
+			from: messageParam.from,
+			to: messageParam.to,
 			text: text,
-			language: req.body.language
+			language: messageParam.language
 		}, function (error) { console.log(error); });
 	};
-	timer(setting, sendMessage);
+    timer(setting, sendMessage, function () {
+        return !timerStoped[timerParameter.id];
+    });
 	res.send('POST request to the homepage');
 });
 
