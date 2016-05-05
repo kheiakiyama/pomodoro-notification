@@ -16,6 +16,7 @@ router.post('/stop', function (req, res) {
         return;
     }
     timerStoped[req.body.id] = true;
+    res.send('stoped.');
 });
 
 router.post('/', function (req, res) {
