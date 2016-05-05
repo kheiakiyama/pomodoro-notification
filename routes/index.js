@@ -9,23 +9,23 @@ router.get('/', function (req, res) {
 });
 
 router.post('/', function (req, res) {
-	if (process.env.API_KEY !== req.params.apikey) {
+	if (process.env.API_KEY !== req.body.apikey) {
 		res.send('Authentication Failed');
 		return;
 	}
 	var setting = {
-		Duration: req.params.duration,
-		ShortBreak: req.params.shortbreak,
-		LongBreak: req.params.longbreak,
-		LongBreakSpan: req.params.longbreakspan
+		Duration: req.body.duration,
+		ShortBreak: req.body.shortbreak,
+		LongBreak: req.body.longbreak,
+		LongBreakSpan: req.body.longbreakspan
 	};
     var sendMessage = function (text) {
         console.log(text);
 		botMessage({
-			from: { channelId: req.params.channelId, address: req.params.from },
-			to: { channelId: req.params.channelId, address: req.params.to },
+			from: { channelId: req.body.channelId, address: req.body.from },
+			to: { channelId: req.body.channelId, address: req.body.to },
 			text: text,
-			language: req.params.language
+			language: req.body.language
 		}, function (error) { console.log(error); });
 	};
 	timer(setting, sendMessage);
