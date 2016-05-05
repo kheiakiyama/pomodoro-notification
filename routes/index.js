@@ -9,25 +9,23 @@ router.get('/', function (req, res) {
 });
 
 router.post('/', function (req, res) {
-	var apiKey = req.param('apikey');
-	if (process.env.API_KEY !== apiKey) {
+	if (process.env.API_KEY !== req.params.apikey) {
 		res.send('Authentication Failed');
 		return;
 	}
-	var key = req.param('key');
 	var setting = {
-		Duration: 20,
-		ShortBreak: 5,
-		LongBreak: 20,
-		LongBreakSpan: 4
+		Duration: req.params.duration,
+		ShortBreak: req.params.shortbreak,
+		LongBreak: req.params.longbreak,
+		LongBreakSpan: req.params.longbreakspan
 	};
     var sendMessage = function (text) {
         console.log(text);
 		botMessage({
-			from: { channelId: 'slack', address: 'U14PD4FPF' },
-			to: { channelId: 'slack', address: 'U0B3WGWTV' },
+			from: { channelId: req.params.channelId, address: req.params.from },
+			to: { channelId: req.params.channelId, address: req.params.to },
 			text: text,
-			language: 'ja'
+			language: req.params.language
 		}, function (error) { console.log(error); });
 	};
 	timer(setting, sendMessage);
