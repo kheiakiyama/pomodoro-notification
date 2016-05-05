@@ -49,7 +49,7 @@ router.post('/', function (req, res) {
 			language: messageParam.language
 		}, function (error) { console.log(error); });
 	};
-    timer(setting, sendMessage, function () {
+    timer(timerParameter.setting, sendMessage, function () {
         return !timerStoped[timerParameter.id];
     });
 	res.send('POST request to the homepage');
