@@ -21,7 +21,7 @@
 		setTimeout(function () {
 			sendMessage("short break is end.");
 			startPomodoro();
-		}, minutesToMillSecond(setting.LongBreak));
+		}, minutesToMillSecond(setting.ShortBreak));
 	};
 	var longBreak = function () {
         if (!isContinue())
