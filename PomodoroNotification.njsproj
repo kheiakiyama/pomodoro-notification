@@ -32,16 +32,12 @@
   <ItemGroup>
     <Compile Include="app.js" />
     <Compile Include="routes\index.js" />
-    <Compile Include="routes\users.js" />
     <Compile Include="node-bin\www" />
     <Compile Include="tool\bot-message.js" />
     <Compile Include="tool\pomodoro-timer.js" />
     <Content Include="package.json" />
     <Content Include="public\stylesheets\style.styl" />
     <Content Include="README.md" />
-    <Content Include="views\index.jade" />
-    <Content Include="views\layout.jade" />
-    <Content Include="views\error.jade" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="node-bin\" />
@@ -51,7 +47,6 @@
     <Folder Include="public\javascripts\" />
     <Folder Include="public\stylesheets\" />
     <Folder Include="routes\" />
-    <Folder Include="views\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.config" />
