@@ -33,7 +33,7 @@
 		}, minutesToMillSecond(setting.LongBreak));
 	};
 	var minutesToMillSecond = function (minutes) { 
-		return minutes * 1000;
+		return minutes * 60 * 1000;
 	};
 	startPomodoro();
 };
