@@ -7,7 +7,7 @@ var timerStoped = new Array();
 
 /* GET home page. */
 router.get('/', function (req, res) {
-	res.render('index', { title: 'Express' });
+    res.send('Pong');
 });
 
 router.post('/stop', function (req, res) {
