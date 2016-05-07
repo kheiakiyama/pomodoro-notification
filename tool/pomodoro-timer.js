@@ -1,12 +1,25 @@
 ﻿var timer = function (setting, sendMessage, isContinue) {
-	var count = 0;	
+    var count = 0;
+    var msg = "";
+    var stockMessage = function (text) {
+        if (msg !== "") {
+            msg += "\n\n";
+        }
+        msg += text;
+    };
+    var postMessage = function () {
+        sendMessage(msg);
+        msg = "";
+    };
 	var startPomodoro = function () {
         count++;
         if (!isContinue())
             return;
-		sendMessage(count + " pomodoro start.");
+        stockMessage(count + " pomodoro start.");
+        postMessage();
 		setTimeout(function () {
-			var time, message;
+            stockMessage(count + " pomodoro is end.");
+            var time, message;
 			if (count % setting.LongBreakSpan == 0) {
 				longBreak();
 			} else {
@@ -17,18 +30,20 @@
 	var shortBreak = function () {
         if (!isContinue())
             return;
-		sendMessage(count + " pomodoro is end. rest " + setting.ShortBreak + " minutes of short break.");
-		setTimeout(function () {
-			sendMessage("short break is end.");
+        stockMessage(setting.ShortBreak + " minutes short break start.");
+        postMessage();
+        setTimeout(function () {
+            stockMessage("short break is end.");
 			startPomodoro();
 		}, minutesToMillSecond(setting.ShortBreak));
 	};
 	var longBreak = function () {
         if (!isContinue())
             return;
-		sendMessage(count + " pomodoro is end. rest " + setting.LongBreak + " minutes of long break.");
-		setTimeout(function () {
-			sendMessage("long break is end.");
+        stockMessage(setting.LongBreak + " minutes long break start.");
+        postMessage();
+        setTimeout(function () {
+            stockMessage("long break is end.");
 			startPomodoro();
 		}, minutesToMillSecond(setting.LongBreak));
 	};
