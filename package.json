@@ -1,14 +1,14 @@
 {
   "name": "pomodoro-notification",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "start": "node ./app.js"
   },
   "description": "PomodoroNotification",
   "author": {
-    "name": "yuzu_jam_aiko",
-    "email": ""
+    "name": "kheiakiyama",
+    "email": "kheiakiyama@gmail.com"
   },
   "dependencies": {
     "body-parser": "~1.8.1",
