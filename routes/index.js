@@ -19,6 +19,10 @@ router.post('/stop', function (req, res) {
     res.send('stoped.');
 });
 
+router.post('/deploy', function (req, res) {
+    console.log(req.body);
+});
+
 router.post('/', function (req, res) {
 	if (process.env.API_KEY !== req.body.apikey) {
 		res.send('Authentication Failed');
