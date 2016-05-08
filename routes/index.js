@@ -6,6 +6,18 @@ var botMessage = require('../tool/bot-message');
 var runningTimers = new Array();
 
 /* GET home page. */
+var broardCastNews = function (text) {
+    for (var key in runningTimers) {
+        if (!runningTimers[key].isRunning) { continue; }
+        var messageParam = runningTimers[key].messageDefault;
+        botMessage({
+            from: messageParam.from,
+            to: messageParam.to,
+            text: text,
+            language: messageParam.language
+        }, function (error) { console.log(error); });
+    }
+};
 router.get('/', function (req, res) {
     res.send('Pong');
 });
@@ -22,6 +34,7 @@ router.post('/stop', function (req, res) {
 router.post('/deploy', function (req, res) {
     console.log(req.body);
     console.log(runningTimers);
+    broardCastNews('this service was deployed.\n\n');
     res.send('deployed.');
 });
 
