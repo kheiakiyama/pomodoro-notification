@@ -3,7 +3,7 @@ var router = express.Router();
 var timer = require('../tool/pomodoro-timer');
 var botMessage = require('../tool/bot-message');
 
-var timerStoped = new Array();
+var runningTimers = new Array();
 
 /* GET home page. */
 router.get('/', function (req, res) {
@@ -15,7 +15,7 @@ router.post('/stop', function (req, res) {
         res.send('Authentication Failed');
         return;
     }
-    timerStoped[req.body.id] = true;
+    runningTimers[req.body.id].isRunning = false;
     res.send('stoped.');
 });
 
@@ -36,9 +36,10 @@ router.post('/', function (req, res) {
             ShortBreak: req.body.shortbreak,
             LongBreak: req.body.longbreak,
             LongBreakSpan: req.body.longbreakspan
-        }
+        },
+        isRunning: true
     };
-    timerStoped[timerParameter.id] = false;
+    runningTimers[timerParameter.id].push(timerParameter);
     var sendMessage = function (text) {
         console.log(text);
         var messageParam = timerParameter.messageDefault;
@@ -50,7 +51,12 @@ router.post('/', function (req, res) {
 		}, function (error) { console.log(error); });
 	};
     timer(timerParameter.setting, sendMessage, function () {
-        return !timerStoped[timerParameter.id];
+        var res = runningTimers[timerParameter.id].isRunning;
+        if (!res) {
+            runningTimers.pop(timerParameter.id);
+        }
+        console.log(runningTimers);
+        return res;
     });
 	res.send('POST request to the homepage');
 });
