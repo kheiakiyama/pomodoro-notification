@@ -21,6 +21,8 @@ router.post('/stop', function (req, res) {
 
 router.post('/deploy', function (req, res) {
     console.log(req.body);
+    console.log(runningTimers);
+    res.send('deployed.');
 });
 
 router.post('/', function (req, res) {
