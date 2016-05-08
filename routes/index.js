@@ -18,6 +18,11 @@ var broardCastNews = function (text) {
         }, function (error) { console.log(error); });
     }
 };
+
+process.on('SIGTERM', function () {
+    broardCastNews('this service shutdown by heroku.\n\nPlease restart.');
+});
+
 router.get('/', function (req, res) {
     res.send('Pong');
 });
