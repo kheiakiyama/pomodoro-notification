@@ -43,7 +43,7 @@ router.post('/', function (req, res) {
         },
         isRunning: true
     };
-    runningTimers[timerParameter.id].push(timerParameter);
+    runningTimers[timerParameter.id] = timerParameter;
     var sendMessage = function (text) {
         console.log(text);
         var messageParam = timerParameter.messageDefault;
@@ -57,7 +57,7 @@ router.post('/', function (req, res) {
     timer(timerParameter.setting, sendMessage, function () {
         var res = runningTimers[timerParameter.id].isRunning;
         if (!res) {
-            runningTimers.pop(timerParameter.id);
+            delete runningTimers[timerParameter.id];
         }
         console.log(runningTimers);
         return res;
