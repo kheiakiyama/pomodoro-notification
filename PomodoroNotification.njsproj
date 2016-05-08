@@ -41,6 +41,7 @@
     <Content Include="README.md" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="views\" />
     <Folder Include="node-bin\" />
     <Folder Include="tool\" />
     <Folder Include="public\" />
@@ -50,6 +51,7 @@
     <Folder Include="routes\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="views\error.jade" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config" />
     <Content Include="node-bin\ChangeConfig.ps1" />
