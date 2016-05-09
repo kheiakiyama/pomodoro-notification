@@ -36,7 +36,6 @@ router.post('/stop', function (req, res) {
 });
 
 router.post('/', function (req, res) {
-    console.log(req);
 	if (process.env.API_KEY !== req.body.apikey) {
 		res.send('Authentication Failed');
 		return;
