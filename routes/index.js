@@ -35,13 +35,6 @@ router.post('/stop', function (req, res) {
     res.send('stoped.');
 });
 
-router.post('/deploy', function (req, res) {
-    console.log(req.body);
-    console.log(runningTimers);
-    broardCastNews('this service was deployed.\n\n');
-    res.send('deployed.');
-});
-
 router.post('/', function (req, res) {
     console.log(req);
 	if (process.env.API_KEY !== req.body.apikey) {
