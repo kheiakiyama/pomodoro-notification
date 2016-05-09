@@ -5,7 +5,6 @@ var botMessage = require('../tool/bot-message');
 
 var runningTimers = new Array();
 
-/* GET home page. */
 var broardCastNews = function (text) {
     for (var key in runningTimers) {
         if (!runningTimers[key].isRunning) { continue; }
@@ -20,7 +19,7 @@ var broardCastNews = function (text) {
 };
 
 process.on('SIGTERM', function () {
-    broardCastNews('this service shutdown by heroku.\n\nPlease restart.');
+    broardCastNews('This service shutdown by heroku.\n\nPlease restart.');
 });
 
 router.get('/', function (req, res) {
@@ -44,6 +43,7 @@ router.post('/deploy', function (req, res) {
 });
 
 router.post('/', function (req, res) {
+    console.log(req);
 	if (process.env.API_KEY !== req.body.apikey) {
 		res.send('Authentication Failed');
 		return;
