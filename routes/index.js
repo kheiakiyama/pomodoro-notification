@@ -80,7 +80,6 @@ router.post('/', function (req, res) {
         if (!res) {
             delete runningTimers[timerParameter.id];
         }
-        console.log(runningTimers);
         return res;
     });
 	res.send('POST request to the homepage');
