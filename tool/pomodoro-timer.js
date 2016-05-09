@@ -5,7 +5,7 @@
         if (msg !== "") {
             msg += "\n\n";
         }
-        msg += text;
+        msg += seting.Name + ": " + text;
     };
     var postMessage = function () {
         sendMessage(msg);

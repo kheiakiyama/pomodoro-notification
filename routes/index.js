@@ -56,6 +56,7 @@ router.post('/', function (req, res) {
             language: req.body.language
         },
         setting: {
+            Name: req.body.name,
             Duration: req.body.duration,
             ShortBreak: req.body.shortbreak,
             LongBreak: req.body.longbreak,
