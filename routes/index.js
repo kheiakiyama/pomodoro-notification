@@ -83,7 +83,9 @@ router.post('/', function (req, res) {
                       tmp.isRunning &&
                       tmp.setting.UniqueId === setting.UniqueId;
         if (!running) {
-            delete runningTimers[timerParameter.id];
+            if (tmp.setting.UniqueId === setting.UniqueId) {
+                delete runningTimers[timerParameter.id];
+            }
         }
         return running;
     });
