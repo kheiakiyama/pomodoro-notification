@@ -40,6 +40,11 @@ router.post('/', function (req, res) {
 		res.send('Authentication Failed');
 		return;
 	}
+    var running = runningTimers[timerParameter.id] ? runningTimers[timerParameter.id].isRunning: false;
+    if (running) {
+        res.send('This Timer is running');
+        return;
+    }
     var timerParameter = {
         id: req.body.id,
         messageDefault: {
