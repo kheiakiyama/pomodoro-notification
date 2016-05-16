@@ -68,7 +68,7 @@ router.post('/', function (req, res) {
 		}, function (error) { console.log(error); });
 	};
     timer(timerParameter.setting, sendMessage, function () {
-        var res = runningTimers[timerParameter.id].isRunning;
+        var res = runningTimers[timerParameter.id] ? runningTimers[timerParameter.id].isRunning: false;
         if (!res) {
             delete runningTimers[timerParameter.id];
         }

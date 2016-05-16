@@ -8,6 +8,8 @@
         msg += setting.Name + ": " + text;
     };
     var postMessage = function () {
+        if (!isContinue())
+            return;
         sendMessage(msg);
         msg = "";
     };
