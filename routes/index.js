@@ -80,14 +80,12 @@ router.post('/', function (req, res) {
     timer(timerParameter.setting, sendMessage, function (setting) {
         var tmp = runningTimers[timerParameter.id];
         var running = tmp &&
-                      tmp.isRunning &&
-                      tmp.setting.UniqueId === setting.UniqueId;
+                      tmp.isRunning;
         if (!running) {
-            if (tmp.setting.UniqueId === setting.UniqueId) {
-                delete runningTimers[timerParameter.id];
-            }
+            delete runningTimers[timerParameter.id];
+            return false;
         }
-        return running;
+        return tmp.setting.UniqueId === setting.UniqueId;
     });
 	res.send('POST request to the homepage');
 });
