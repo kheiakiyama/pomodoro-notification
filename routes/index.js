@@ -39,7 +39,16 @@ router.post('/', function (req, res) {
 	if (process.env.API_KEY !== req.body.apikey) {
 		res.send('Authentication Failed');
 		return;
-	}
+    }
+    var guid = function () {
+        function s4() {
+            return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+        }
+        return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+    s4() + '-' + s4() + s4() + s4();
+    };
     var timerParameter = {
         id: req.body.id,
         messageDefault: {
@@ -48,6 +57,7 @@ router.post('/', function (req, res) {
             language: req.body.language
         },
         setting: {
+            UniqueId: guid(),
             Name: req.body.name,
             Duration: req.body.duration,
             ShortBreak: req.body.shortbreak,
@@ -56,11 +66,6 @@ router.post('/', function (req, res) {
         },
         isRunning: true
     };
-    var running = runningTimers[timerParameter.id] ? runningTimers[timerParameter.id].isRunning: false;
-    if (running) {
-        res.send('This Timer is running');
-        return;
-    }
     runningTimers[timerParameter.id] = timerParameter;
     var sendMessage = function (text) {
         console.log(text);
@@ -72,12 +77,15 @@ router.post('/', function (req, res) {
 			language: messageParam.language
 		}, function (error) { console.log(error); });
 	};
-    timer(timerParameter.setting, sendMessage, function () {
-        var res = runningTimers[timerParameter.id] ? runningTimers[timerParameter.id].isRunning: false;
-        if (!res) {
+    timer(timerParameter.setting, sendMessage, function (setting) {
+        var tmp = runningTimers[timerParameter.id];
+        var running = tmp &&
+                      tmp.isRunning &&
+                      tmp.setting.UniqueId === setting.UniqueId;
+        if (!running) {
             delete runningTimers[timerParameter.id];
         }
-        return res;
+        return running;
     });
 	res.send('POST request to the homepage');
 });

@@ -8,14 +8,14 @@
         msg += setting.Name + ": " + text;
     };
     var postMessage = function () {
-        if (!isContinue())
+        if (!isContinue(setting))
             return;
         sendMessage(msg);
         msg = "";
     };
 	var startPomodoro = function () {
         count++;
-        if (!isContinue())
+        if (!isContinue(setting))
             return;
         stockMessage(count + " pomodoro start.");
         postMessage();
@@ -30,7 +30,7 @@
 		}, minutesToMillSecond(setting.Duration));
 	};
 	var shortBreak = function () {
-        if (!isContinue())
+        if (!isContinue(setting))
             return;
         stockMessage(setting.ShortBreak + " minutes short break start.");
         postMessage();
@@ -40,7 +40,7 @@
 		}, minutesToMillSecond(setting.ShortBreak));
 	};
 	var longBreak = function () {
-        if (!isContinue())
+        if (!isContinue(setting))
             return;
         stockMessage(setting.LongBreak + " minutes long break start.");
         postMessage();
